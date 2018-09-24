@@ -1,0 +1,253 @@
+{% extends "pcl/base.html" %}
+
+{% block navbar_what %}forum{% endblock %}
+
+
+{% block page_title %} {{ topic.title }} - {{topic.procedure.label}} {% endblock %}
+
+{% block title %}
+    <ul class="breadcrumb">
+    <li><a href="/forum/">Forum</a> <span class="divider">/</span></li>
+    <li><a href='{{ topic.procedure.absolute_forum_url }}'>{{topic.procedure.label }}</a> <span class="divider">/</span></li>
+    <li class="active"><b>{{ topic.title }}</b></li>
+    </ul>
+{% endblock %}
+
+{% block title_extra %}
+
+<div class="pull-right" style="padding-top: 10px ">
+
+<div class="btn-group">
+    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+    <i class="icon-cog"></i> Actions
+    <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+    
+		<li><a href="#"><i class="icon-list-alt"></i> Add Topic to Checklist</a></li>
+		<li><a href="{{ topic.procedure.absolute_search_url }}"><i class="icon-list-alt"></i> Go to Procedure</a></li>
+		
+		{% if user %}
+		<li><a href="#" id="btnFlagTopic"><i class="icon-flag"></i> Flag Topic</a></li>
+		{% endif %}
+		
+		{% if user == topic.user %}
+		
+		<li class="divider"></li>
+		<li><a href="#" id="btnDelTopic"><i class="icon-trash"></i> Delete Topic</a></li>
+        
+        {% endif %}
+                
+    </ul>
+</div>
+</div>
+{% endblock %}
+
+
+
+
+{% block content %}
+
+
+<div style="padding-top: 00px;">
+
+
+	<div style="padding-left: 25px; padding-top: 10px;">
+	
+
+
+{% for post in topic.posts.all %}
+
+	<div class="well well-small"  >
+				
+		<div class="row">
+		    <div class="span10" >
+			{{ post.body|linebreaksbr }} 
+			</div>	
+		    <div style="width: 100%" >
+			    <div class="pull-right">
+
+{# edit only for the last reply and if the user matches #}
+
+{% if forloop.last %}
+{% if user == post.user %} 
+				<button id="btnEdit" class="btn btn-mini" data-toggle="tooltip" title='Edit Post'><i class="icon-edit"></i> Edit Post</button>
+{% endif %}				
+{% endif %}
+				
+				</div>
+			</div>			
+		</div>
+		
+		<div class="row"> 
+		<div style="width: 100%" >
+			<div class=" pull-right">			
+{% if forloop.first %}
+				<span class="label label-warning"><small>{{ topic.procedure.label }} </small></span>
+{% endif %}
+				<span class="label label-info"><small><i class="icon-user"></i> {{ post.user.forum_display_name }} </small></span>
+				<span class="label label-info"><small> {{ post.created }} </small></span>			
+	    	</div>
+   		</div>	    
+		</div>
+	</div>
+
+
+{% endfor %}
+
+
+
+	    
+	
+	
+{% if user %}	
+	
+	<form id="formNewTopic" class="form-horizontal" action="add/" method="post"  >
+		
+		<textarea rows="2" class="span7" name="body"   placeholder="Enter a Reply..." /></textarea>
+		
+		<button id='btnNewTopic' class="btn" type="submit" ><i class="icon-edit"></i> Reply</button> 
+		
+	</form>
+
+{% else %}
+
+<a href="#" id="btnReply" class="btn btn-success"><i class="icon-edit"></i> Reply</a>	
+	
+{% endif %}
+
+	
+</div>	
+</div>
+
+
+<script>
+
+
+
+$(function() {
+
+	$('#btnDelTopic').on( 'click', delTopic );
+})
+
+
+function delTopic(e) {
+	
+  bootbox.confirm("Sure you want to delete this topic?", function( result ) {
+  
+	  if( !result ) return;
+	  
+      submitAjaxForm( e, '{{ topic.absolute_forum_url }}del/', 
+			  		  "",
+			  		  "post",
+			  		  function(data) {
+					  	  window.location = "{{ topic.procedure.absolute_forum_url }}";
+		  			   },
+		  			   null );
+	      
+	  } );
+}	
+
+
+
+
+
+
+$(function() {
+
+	$('#btnFlagTopic').on( 'click', function(e) {
+	
+  		bootbox.confirm("Sure you want to flag this topic?", function( result ) {
+  
+	    	if( !result ) return;
+	  
+      		submitAjaxForm( e, '{{ topic.absolute_forum_url }}flag/', 
+			  		  		"", 
+			  		  		"post",
+			  		  		function(data) {
+      							bootbox.alert("Thank you, we will review this forum topic." );
+		  			   		},
+		  			   		null );
+      		
+      		
+	      
+	  } );
+	} );
+})	
+
+
+
+$("#btnReply").on('click', function(e) {
+
+    $('#modalLS').on('pcl-loggedin', function (e) {
+
+    	window.location.reload();
+    });
+
+	askLoginSignup( null, null );
+
+} );
+
+</script>
+
+
+
+
+
+
+
+<div id="modalEdit" class="modal hide " tabindex='-1'>
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Edit Post</h3>
+  </div>
+  <div class="modal-body">
+		<div id="modalEditContent">
+		Loading...
+		</div>
+
+  </div>
+</div>
+
+
+
+
+<script>
+
+$("#btnEdit").on('click', function(e) {
+
+
+	
+	e.preventDefault(); // preventing default click action
+
+    $.ajax({
+        url: '{{ topic.absolute_forum_url }}edit/',
+        type: 'get',
+        data: '',
+        success: function( data ) {
+
+	    	$("#modalEditContent").html( data ) 
+
+	  		$("#modalEdit").modal( {keyboard: true} ); 
+            
+        }, error: function(){
+        	$("#modalEditContent").html( 'Error...' );
+	  		$("#modalEdit").modal( {keyboard: true} ); 
+        },
+    })
+	
+
+} );
+
+</script>
+
+
+
+
+
+
+
+{% endblock %}    
+
+
+

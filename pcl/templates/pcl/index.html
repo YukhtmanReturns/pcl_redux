@@ -1,0 +1,179 @@
+{% extends "pcl/base.html" %}
+
+
+{% block page_title %}Home{% endblock %}
+
+{% block title %}Search for a Procedure{% endblock %}
+
+
+
+{% block content %}
+
+
+<script>
+
+$(function () {
+    $("#search-query").typeahead({
+    	
+        source: function ( q, process ) {
+            $.ajax({
+                url: '/data/procedures/',
+                dataType: "json",
+                type: "POST",
+                data: { query: q },
+                success: function (data) {
+
+                    process( data );
+                }
+            });
+        },
+        onselect: function (obj) {
+            // $('[name="user_id"]').val(obj.id);
+        }
+
+    });
+
+});
+</script>
+
+
+
+
+<div class="row" style="padding-left: 25px; padding-top: 0px;">
+
+<div class="span6" style="padding-top: 20px; padding-left: 0px;">
+	<form id="search-form"  onSubmit="location.href = '/search/' + encodeURI( document.getElementById('search-query').value ); return false; " class="form-search form-inline pull-left">
+	
+		<input  type="text" id="search-query" name="p" value="{{ search_query }}" class="span4 search-query" placeholder="I'm seeing a doctor for a specific procedure..." autocomplete="off">
+		<button type="submit" class="btn"><i class="icon-search"></i> Search</button>
+		    	    	
+	</form>
+	
+{% if procedures == None %}
+	
+	<br/>	<br/>	<br/>	<br/>
+	
+	<b>PatientsChecklist.com </b> will help you have a conversation with your physician. Be prepared for your next appointment and ask quality questions about your health care needs. Here’s how to use it: <br/><br/> 
+	<div style="padding-left: 20px; ">
+	<i class="icon-check"></i> Type in the procedure you are considering.<br>
+	</div>
+	<div style="padding-left: 20px; padding-top: 7px">
+	<i class="icon-check"></i> Re-arrange, delete, or add any of your own questions.<br>
+	</div>
+	<div style="padding-left: 20px; padding-top: 7px ">
+	<i class="icon-check"></i> Save the checklist and bring it with you to your appointment.<br>
+	</div>
+	<div style="padding-left: 20px; padding-top: 7px ">
+	<i class="icon-check"></i> Ask him/her your questions and leave feeling more comfortable about your procedure.
+	</div>
+
+	
+</div>
+
+	<div class="span4">
+		<div style="padding-left: 0px; padding-right: 50px; ">
+		
+	<div class="span4">
+		<div style="padding-right: 0px; ">
+	
+		 <br/>
+		<a id="btnShowSampleChecklist" href="#" role="button" class="btn btn-link" >Want to see a sample checklist?
+		  
+			<img src="/files/img/patients_paper_new.png">
+		</a> 
+	</div>
+	</div>
+	
+	</div></div>
+	
+	 {% endif %}
+	 
+</div>
+
+
+
+
+    
+{% if procedures %}
+
+	<div style="padding-left: 50px; padding-top: 100px;">
+	
+	{% include "pcl/procedures.html" %}
+	
+	</div>    
+
+{% else %}
+
+	{% if search_query %}
+	<div style="padding-left: 50px; padding-top: 50px;">
+	<br/><br/><br/>
+		<h4>We are constantly expanding our universe of questions. Please check back soon or <a href="#modalContact" role="button" id='btnShowContact' type="submit" data-toggle="modal">Contact Us</a> to make a suggestion.</h4>
+		
+		<br/><br/><br/><br/><br/><br/><br/><br/>
+		
+	</div>
+	
+	{% endif  %}
+
+
+{% endif %}
+
+
+
+	
+	
+	
+
+
+{% if search_query  == None %}
+
+
+{#  contents of the main page - maybe move this into an extra file  #}
+
+
+
+	<br/>
+	<br/>
+	<br/>
+
+	<center>
+	<em>Mobile App Coming Soon!
+ </em>	</center>
+
+<script>
+
+	$('#btnShowSampleChecklist').on('click', function (e) {
+	
+		data = "qs=" + encodeURI( "73 77 74 70 68 69 76 81 79 82 75 71 72 78 80" );
+		
+		showModalChecklist( data ); 
+		
+	});
+
+
+
+    $(function(){
+  	
+        $('.btnResultList').on('click', function(e) { 
+
+        	pid = $(this).data('pid');        	
+      
+        	n = '#resultDetails' + pid;
+        	
+        	// $(n).collapse( "toggle" );
+        	
+        	return;
+       	})
+    })
+</script>
+
+
+
+
+{% endif %}
+    
+</div>
+    
+
+{% endblock %}    
+

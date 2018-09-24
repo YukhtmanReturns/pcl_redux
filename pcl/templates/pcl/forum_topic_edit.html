@@ -1,0 +1,15 @@
+
+<form id="formEdit" class="form-horizontal" method="post" action='edit/' >
+	
+				
+{% if is_first_post %}
+<input    id="inputTitle" type="text" class="span7" name="title"  placeholder="Enter a Title..." value="{{ topic.title }}"> <br/> 
+{% endif %}
+
+<textarea id="inputBody"  rows="7" class="span7" name="body" >{{ post.body }}</textarea>
+<div class="modal-footer">
+	<input id='btnEdit' class="btn btn-success" type="submit" value="Save">
+</div>
+
+	
+				

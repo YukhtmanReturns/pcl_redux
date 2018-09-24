@@ -1,0 +1,89 @@
+{% extends "pcl/base.html" %}
+
+
+{% block title %}Reset Password{% endblock %}
+
+
+{% block content %}
+
+<div class="row" style="padding-top: 25px;">
+
+<div class="span2">
+</div>
+
+<div class="span10">
+
+
+    {% load crispy_forms_tags %}
+	{% crispy form form.helper %}
+
+
+
+  {% if token %}
+
+	<form id="formReset" class="form-horizontal" method="post">
+
+			<div id="instructions">		
+				Reset Password
+				<br/><br/>
+				<div class="control-group">
+		        <input type="password" id="pwd"  name="pwd"  value="" placeholder="Enter new password...">
+		        <br/>
+		        <input type="password" id="cpwd" name="cpwd" value="" placeholder="Confirm password...">
+		        </div>
+		        
+		        <input type="hidden" name="token" value="{{ token }}" >
+				<input id='btnReset' class="btn btn-success" type="submit" value="Reset Password">
+			</div>
+	  </form>
+	  
+
+<script>
+$(function(){
+	
+  	
+   	function btnReset(e){
+   		
+        e.preventDefault(); // preventing default click action
+        
+        submitAjaxForm( e, 
+        				'/user/reset/set/', 
+        				$("#formReset").serialize(), 
+        				"post",
+        				function(data) {
+
+				        	if( data == "OK" ) {
+				            	
+				        		//todo: make pretty alert confirmation 
+				        		
+				        		bootbox.alert("Reset password successfully")
+				            	
+				            	
+				    		} else {
+				                // error handling
+				            	// alert( "error" );
+				            }       
+        } );
+    }
+        
+	$('#btnReset'   ).on('click', btnReset );
+        
+        
+})
+</script>
+	  
+
+{% else %}
+
+  Invalid token 
+  
+{% endif %}
+
+
+  </div>
+</div>
+
+
+
+{% endblock %}    
+

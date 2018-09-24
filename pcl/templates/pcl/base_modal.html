@@ -1,0 +1,386 @@
+
+
+
+<div id="modalYesNo" class="modal hide" style="z-index:110000; ">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3 id="modalYesNoHeader">Modal header</h3>
+  </div>
+  <div class="modal-body" id="modalYesNoBody">
+    <p>One fine body</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" id="modalYesNoClose" data-dismiss="modal" >Close</a>
+    <a href="#" class="btn btn-primary" id="modalYesNoAction">Action</a>
+  </div>
+</div>
+
+
+
+<div id="modalLS" class="modal hide" tabindex='-1' style="z-index:110000; width: 800px; ">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3 id="modalLSHeader">You're not logged in</h3>
+  </div>
+  <div class="modal-body" id="modalLSBody">
+    <p>Please create an account or log in with your existing username and password.</p>
+
+    
+<div class="row">
+    
+	<div class="span3">
+   	
+   	<legend>Login</legend>
+   	
+	    		<form id="modalLSformLogin" class="form-inline" >
+	    		<div>
+		<input id="loginEmailLS" class="loginEmail  required email" type="email" required name="email" value="" placeholder="Enter email address..."  >
+		<br/>
+		<input id=loginPwdLS" class="loginPwd " required type="password" name="pwd"   value="" placeholder="Enter password..." 	   >
+		<br/>
+		<button id="modalLSbtnSubmitLogin" type="submit" class="pulls-right btn btn-success">Log in</button>
+					</div>
+	    		</form>
+ 	</div>
+   	<div class="span1">
+   	<br/<br/>
+   	or
+   	</div>
+   	<div class="span3">
+
+   	<legend>Sign Up</legend>
+   	
+	<form id="formSignupLS" class="form-inline" method="post">
+		
+		      <input class="required email" type="email" required id="email" name="email" value="" placeholder="Enter email address...">
+		      <input required minlength="4" type="password" id="pwd"  name="pwd"  value="" placeholder="Enter a Password...">
+		      <input required minlength="4" type="password" id="cpwd" name="cpwd" value="" placeholder="Confirm Password...">
+		<br/>
+		<button id="modalLSbtnSubmitSignup" type="submit" class="pulls-right btn btn-success">Sign up</button>
+	  </form>
+
+
+   </div>
+   
+   </div>
+   </div>
+  <div class="modal-footer">
+  </div>
+</div>
+
+
+
+
+
+
+<script>
+
+$('#modalNotLoggedIn_S').on('click',function() {
+
+	$("#modalNotLoggedIn").modal('hide');
+
+	$("#modalSignup").modal('show');
+	
+	
+} );
+
+$('#modalNotLoggedIn_L').on('click',function(e) {
+/*
+	e.preventDefault();
+	
+	$("#modalNotLoggedIn").modal('hide');
+	
+	$('#dropdownLogin').addClass( 'open' );
+	
+	$('#loginEmail').focus();
+	
+	return false;
+	*/
+});
+
+
+
+
+</script>
+
+
+
+<div id="modalInput" class="modal hide" style="z-index:110000; ">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3 id="modalInputHeader">Modal header</h3>
+  </div>
+  <div class="modal-body" id="modalInputBody">
+  
+    <div class="control-group">
+	    <label id="modalInputLbl" class="control-label" for="modalInputTxt">Label</label>
+	    <div class="controls">
+	      <input type="text" id="modalInputTxt" placeholder="">
+	    </div>
+    </div>
+    
+    
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" id="modalInputClose" data-dismiss="modal" >Close</a>
+    <a href="#" class="btn btn-primary" id="modalInputAction">Action</a>
+  </div>
+</div>
+
+
+
+
+
+
+<div id="modalSignup" class="modal hide fade" tabindex='-1'>
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Sign up</h3>
+  </div>
+  <div class="modal-body">
+
+<div class="row">
+
+	<form id="formSignup" class="form-horizontal" method="post">
+		
+		  <div class="control-group">
+		    <label class="control-label" for="email">Email</label>
+		    <div class="controls">
+		      <input class="required email" type="email" required id="email" name="email" value="" placeholder="Enter email address...">
+		    </div>
+		  </div>
+		  <div class="control-group">
+		    <label class="control-label" for="pwd">Password</label>
+		    <div class="controls">
+		      <input required minlength="4" type="password" id="pwd" name="pwd" value="" placeholder="Enter a Password...">
+		    </div>
+		    <label class="control-label" for="cpwd">Confirm Password</label>
+		    <div class="controls">
+		      <input required minlength="4" type="password" id="cpwd" name="cpwd" value="" placeholder="Confirm Password...">
+		    </div>
+		  </div>
+	  </form>
+	  
+	  <div id="signUpError" class="alert alert-error hide">
+            <button type="button" class="close" >×</button>
+            <h4 class="alert-heading">Error!</h4>
+            <p>User exists already!</p>
+            <p>
+              <a id="btnSignupForgot"  class="btn btn-danger" href="#">Forgot your password?</a>
+            </p>
+      </div>	  
+  </div>
+	  <div class="modal-footer">
+		<input id='btnSignup' class="btn btn-success" type="submit" value="Sign up">
+	  </div>
+</div>
+</div>
+<script>
+
+    $('.alert-error .close').on('click',function(){
+	  $(this).parent().hide('slow');
+	});
+
+    $('#btnSignupForgot').on('click',function(){
+	  	window.location ='/user/forgot/';
+	});
+
+
+    $('#modalSignup').on('show', function () {
+    	
+//    	alert( 'hallo 2');
+        // clear input fields
+    	$('#email').val("");
+    	$('#pwd').val("");
+    	$('#cpwd').val("");
+
+    })
+  
+    
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<div id="modalContact" class="modal hide" tabindex='-1' style="width: 550px;" >
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Contact</h3>
+  </div>
+  <div class="modal-body">
+	
+		<div class="span5">
+		
+			<form id="formContact" class="form-horizontal" method="post">		
+				<input id="contactEmail" class="span5 required email" type="email" required name="contactEmail" value="" placeholder="Enter your email address..."  >
+				<textarea id="contactTxt" rows="5" class="span5" name="contactTxt" placeholder="Enter a Comment or Question..."></textarea>
+			</form>			
+				
+		    <div class="pull-right" style="padding-top: 0px;" >
+		  		<input id='btnContactSend' class="btn btn-success" type="submit" value="Send">	
+		  	</div>
+		</div>  	
+  </div>
+</div>
+
+
+<script>
+	
+$('#modalContact').on('shown', function () {
+	
+    // clear input fields
+	
+	$('#contactEmail').val("");
+	$('#contactTxt').val("");
+});	
+
+</script>
+
+
+
+
+<div id="modalSendList" class="modal hide" tabindex='-1' style="width: 550px;" >
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Share a PatientsChecklist</h3>
+  </div>
+  <div class="modal-body">
+	
+		<div style="width: 500px" >
+		Share this list link:<br/>
+		<a target="_blank" id="sendListLink" href="xxx">xxx</a>
+		<br/><br/>
+		</div>
+			
+		<div style="width: 500px" >
+		
+			<form id="formSendList" class="form-horizontal" method="post">		
+				<input style="margin-bottom: 5px; width: 450px" id="sendListEmail" class="required email" type="email" required name="sendListEmail" value="" placeholder="Enter the recipient's email address..."  >
+				<br/><br/>Feel free to customize the message below.<br/>
+				<textarea style="width: 450px" id="sendListTxt" rows="5" name="sendListTxt" placeholder="Your custom message..."></textarea>
+
+				<input id="sendListHK" type="hidden" name="sendListHK" value=""  >
+
+			</form>			
+				
+		    <div class="pull-right" style="padding-top: 0px; padding-right: 35px" >
+		  		<input id='btnSendList' class="btn btn-success" type="submit" value="Share List">	
+		  	</div>
+		</div>  	
+  </div>
+</div>
+
+
+<script>
+	
+$('#modalSendList').on('shown', function () {
+	
+    // clear input fields
+	
+	$('#sendListEmail').val("");
+	$('#sendListTxt').val("");
+});	
+
+</script>
+
+
+
+
+
+    
+<div style=" top: 20px; left: 450px; width: 800px;"  id="modalSample" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Sample Checklist</h3>
+  </div>
+  <div class="modal-body" id="modalSampleBody">
+    
+    <br/><br/><br/>
+    <center>
+    <img src="/files/img/loading.gif">
+    </center>
+    <br/><br/><br/>
+    
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>    
+  </div>
+</div>
+    
+
+
+
+
+
+
+<div style=" top: 20px; left: 400px; width: 800px;"  id="modalChecklist" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Create and Save Checklist</h3>
+  </div>
+  <div class="modal-body" id="modalChecklistBodyTxt">
+  <span class="label label-info">Attention!</span>
+  Instructions on how to use / re-arrage / drag-n-drop the questions go here.
+  </div>
+  <div class="modal-body" id="modalChecklistBody">
+    
+    <br/><br/><br/>
+    <center>
+    <img src="/files/img/loading.gif">
+    </center>
+    <br/><br/><br/>
+    
+  </div>
+  <div class="modal-footer">
+    <button id="btnChecklistClose" class="btn btn-success" >Save Checklist</button>    
+  </div>
+</div>
+
+
+
+<script>
+$('#btnChecklistClose').on('click',function(e) {
+
+	
+    $('#modalLS').on('pcl-loggedin', function (e) {
+
+    
+    	saveListForUser( null, "#saveDataList" );
+	    $('#modalChecklist').modal('hide');
+    });
+
+	
+	submitAjaxForm( null,
+		        '/user/loggedin/',
+		        "",
+		        "post",
+		    	function( data ) {
+		
+					// alert('logged in');
+					
+					saveListForUser( null, "#saveDataList" );
+				    $('#modalChecklist').modal('hide');
+				
+				},
+				function() {
+
+					askLoginSignup( e, null );
+					
+				} );
+
+	
+} );
+</script>
+
+
+

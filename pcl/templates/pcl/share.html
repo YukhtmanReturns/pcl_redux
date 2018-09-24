@@ -1,0 +1,29 @@
+{% extends "pcl/base.html" %}
+
+
+
+{% block page_title %}Shared Checklist{% endblock %}
+
+{% block title %}Shared Checklist{% endblock %}
+
+
+
+{% block content %}
+
+
+
+
+<div class="row">
+<div class="span12">
+
+
+		&nbsp;
+  		<div id="list{{ l.id }}" class="well well-small" >
+			{% include "pcl/inc.list.html" with list=l questions=q show_list_header=True read_only=True %}        
+		</div>    
+		            
+
+</div>
+</div>
+
+{% endblock %}

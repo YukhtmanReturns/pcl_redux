@@ -1,0 +1,142 @@
+{% extends "pcl/base.html" %}
+
+{% block navbar_what %}forum{% endblock %}
+
+{% block page_title %}Discussions for {{ title }} {% endblock %}
+
+{% block title %}
+    <ul class="breadcrumb">
+    <li><a href="/forum/">Forum</a> <span class="divider">/</span></li>
+    <li class="active">{{ title }}</li>
+    </ul>
+{% endblock %}
+
+
+
+
+{% block title_extra %}
+
+
+<div class="pull-right" style="padding-top: 10px ">
+	
+	<div class="btn-group">
+		<a class="btn" href="#" role="button" id='btnNewTopic' type="submit" ><i class="icon-edit"></i> New Topic</a>
+		<button class="btn dropdown-toggle" data-toggle="dropdown">
+			<span class="caret"></span>
+		</button>
+	    <ul class="dropdown-menu">
+	    
+			<li><a href="{{ procedure.absolute_search_url }}"><i class="icon-list-alt"></i> Go to Procedure Checklist</a></li>
+			                
+	    </ul>
+	</div>    
+</div>
+    	
+
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+
+<div id="modalNewTopic" class="modal hide" tabindex='-1'>
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Start a New Topic</h3>
+  </div>
+  <div class="modal-body">
+
+
+	<form id="formNewTopic" class="form-horizontal" method="post" action='add/' >
+		
+		<input    id="inputTitle" type="text" class="span5" name="title"  placeholder="Enter a Title..."> <br/> 
+		<textarea id="inputBody"  rows="7" class="span5" name="body"   placeholder="Enter a Question..." /></textarea>
+				
+		<div class="modal-footer">
+			<input id='btnNewTopic' class="btn btn-success" type="submit" value="Submit">
+		</div>
+	</form>
+  </div>
+</div>
+
+
+
+<script>
+
+$("#btnNewTopic").on('click', function(e) {
+
+	
+	submitAjaxForm( null,
+	        '/user/loggedin/',
+	        "",
+	        "post",
+	    	function( data ) {
+	
+				$("#modalNewTopic").modal( {keyboard: true} ) 
+		
+			   	$('#inputTitle').val("");
+			   	$('#inputBody' ).val("");
+				$('#inputTitle').focus();
+		
+			},
+			function() {
+			    $('#modalLS').on('pcl-loggedin', function (e) {
+
+					$("#modalNewTopic").modal( {keyboard: true} ) 
+					
+				   	$('#inputTitle').val("");
+				   	$('#inputBody' ).val("");
+					$('#inputTitle').focus();
+			    });
+				askLoginSignup( e, null );
+			} );
+	
+	
+} );
+
+</script>
+
+
+
+
+<div style="padding-top: 00px;">
+
+
+{% include "pcl/forum_search_box.html" with forum_search_scope_type='P' forum_search_scope_val=procedure.id %}
+
+
+{% if topics %}
+
+<div style="padding-left: 25px; padding-top: 10px;">
+	
+{% for t in topics %}
+
+{% include "pcl/forum_inc_list_topic.html" with topic=t show_procedure_in_topic_list=False %}
+
+{% endfor %}
+	    
+</div>
+	
+	
+	
+{% else %}
+
+
+<div style="padding-left: 25px; padding-top: 10px;">
+	<div class="well well-small" >
+			
+		Didn't find any topics.
+			  
+	</div>    
+</div>
+	
+
+{% endif %}
+</div>
+
+
+{% endblock %}    
+

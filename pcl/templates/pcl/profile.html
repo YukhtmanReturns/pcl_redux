@@ -1,0 +1,44 @@
+{% extends "pcl/base.html" %}
+
+
+{% block page_title %}My Profile{% endblock %}
+
+
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+<div class="span6" >
+	{% crispy form form.helper %}
+</div>
+
+<div class="span5" >
+
+	{% crispy pform pform.helper %}
+	
+	<div style="padding-top: 25px;">	
+		{% if pmsg %}
+			<div class="alert alert-{{ pmsg.type }} " >
+			  <button type="button" class="close" data-dismiss="alert">&times;</button>
+			  <b>{{ pmsg.title }}</b><br/> {{ pmsg.text }}
+			</div>
+		{% endif %}
+	</div>
+
+</div>
+
+<script>
+
+	$(function() {
+		$('#id_bday').datepicker();
+		// $('#id_bday').attr("readonly", true );
+		
+		$('#titlediv').hide();
+	})
+		
+
+</script>
+
+{% endblock %}    
+

@@ -1,0 +1,67 @@
+{% extends "pcl/base.html" %}
+
+{% block navbar_what %}forum{% endblock %}
+
+{% block page_title %}Forum Areas{% endblock %}
+
+{% block title %}
+    <ul class="breadcrumb">
+    <li><a href="/forum/">Forum</a> <span class="divider">/</span></li>
+    <li class="active">Areas</li>
+    </ul>
+{% endblock %}
+
+
+
+{% block content %}
+
+{% include "pcl/forum_search_box.html" with forum_search_scope_type='F' %}
+
+
+{% if areas %}
+
+<div style="padding-left: 25px; padding-top: 10px;">
+<div class="row">
+    {% for a in areas %}
+    
+		{% if a.id == 0 %}
+		</div><div class="row">
+		{% endif %}
+    
+  		<div id="list{{ l.id }}" class="well well-small span4" >
+			<a href='{{ a.absolute_forum_url }}'>{{ a.label }}</a><br/>
+ 				
+			<small>		
+			
+			{% if a.id != 0 %}
+			
+				{{a.count_procs}} procedure{% if a.count_procs != 1 %}s{%endif%} with
+			 
+			{% endif %}
+			
+			{{a.count_topics}} topic{% if a.count_topics != 1 %}s{%endif%}</small>
+			
+			
+				<br/>
+{% if a.id != 0 %}
+				
+		<small>Top: </small> 
+		{% for p in a.top_procs %}
+		<span class="label label-warning"><small><a style="color: rgb(255, 255, 255); " href='{{ p.absolute_forum_url }}'>{{ p.label }}</a></small></span>
+		{% endfor %}
+		<span class="label label-warning"><small><a style="color: rgb(255, 255, 255); " href='{{ a.absolute_forum_url }}'>More...</a></small></span>
+		
+{% endif %}
+
+				     
+		</div>
+		
+		    
+    {% endfor %}
+</div>    
+</div>
+
+{% endif %}
+
+{% endblock %}    
+

@@ -1,0 +1,132 @@
+{% extends "pcl/base.html" %}
+
+{% block navbar_what %}forum{% endblock %}
+
+{% block page_title %}Forum Search for "{{ forum_search_query }}" {% endblock %}
+
+{% block title %}
+    <ul class="breadcrumb">
+    <li><a href="/forum/">Forum</a> <span class="divider">/</span></li>
+    {% if scope_text %}
+    <li><a href="{{ scope_link }}">{{ scope_text }}</a> <span class="divider">/</span></li>
+    {% endif %}
+    <li class="active">Search for "{{ forum_search_query }}"</li>
+    </ul>
+{% endblock %}
+
+
+
+
+{% block title_extra %}
+
+
+
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+
+<div id="modalNewTopic" class="modal hide" tabindex='-1'>
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Start a New Topic</h3>
+  </div>
+  <div class="modal-body">
+
+
+	<form id="formNewTopic" class="form-horizontal" method="post" action='/forum/0-general/add/' >
+		
+		<input    id="inputTitle" type="text" class="span5" name="title"  placeholder="Enter a Title..."> <br/> 
+		<textarea id="inputBody"  rows="7" class="span5" name="body"   placeholder="Enter a Question..." /></textarea>
+				
+		<div class="modal-footer">
+			<input id='btnNewTopic' class="btn btn-success" type="submit" value="Submit">
+		</div>
+	</form>
+  </div>
+</div>
+
+
+
+
+
+
+
+{% include "pcl/forum_search_box.html" with forum_search_scope_type=st forum_search_scope_val=sv%}
+
+
+<div style="padding-top: 40px;">
+{% if topics %}
+
+	<div style="padding-left: 25px; padding-top: 10px;">
+	
+{% for t in topics %}
+	    
+{% include "pcl/forum_inc_list_topic.html" with topic=t show_procedure_in_topic_list=True %}
+
+{% endfor %}
+
+	    
+	</div>
+	
+	
+	
+{% else %}
+		<div style="padding-left: 25px; padding-top: 10px;">
+	
+	  		<div class="well well-small" >
+	  		
+				We don't have anything on that topic yet, would you like to <a class="btn-label" href="#" id='btnNewTopic2' > Add a Topic? </a>
+					  
+			</div>    
+	    
+	</div>
+	
+
+{% endif %}
+</div>
+
+
+<script>
+
+$("#btnNewTopic2").on('click', function(e) {
+
+	
+	submitAjaxForm( null,
+	        '/user/loggedin/',
+	        "",
+	        "post",
+	    	function( data ) {
+	
+				$("#modalNewTopic").modal( {keyboard: true} ) 
+		
+			   	$('#inputTitle').val("");
+			   	$('#inputBody' ).val("");
+				$('#inputTitle').focus();
+		
+			},
+			function() {
+			    $('#modalLS').on('pcl-loggedin', function (e) {
+
+					$("#modalNewTopic").modal( {keyboard: true} ) 
+					
+				   	$('#inputTitle').val("");
+				   	$('#inputBody' ).val("");
+					$('#inputTitle').focus();
+			    });
+				askLoginSignup( e, null );
+			} );
+	
+	
+} );
+
+</script>
+
+
+
+{% endblock %}    
+

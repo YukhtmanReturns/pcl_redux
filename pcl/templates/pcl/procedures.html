@@ -1,0 +1,190 @@
+{% if procedures %}
+
+
+<script>
+
+
+
+
+
+
+$(function() {
+
+	 $( ".sortMe" ).sortable();
+	 $( ".sortMe" ).disableSelection();
+	 $( ".sortMe" ).sortable({
+		  stop: function( event, ui ) {				  
+			  
+ 				    pid = $(ui.item).data('pid');
+
+ 				    resetListForPID( pid );
+	 			
+			  
+		  }
+		});
+	 		 
+})
+
+
+
+</script>	
+	
+	
+	
+
+{% for p in procedures %}
+ 
+ 
+<div id="proc{{ p.pk }}" class="well well-small" style="margin-bottom: 5px" >
+     
+	<button data-pid="{{ p.pk }}" class="btn btn-link btnResultList"  href="#" >
+		{{ p.label }}
+	</button>
+	<a href="#" id="show_descr_link_{{ p.pk }}" data-pid="{{ p.pk }}" class="descr_show hide pull-rightx" style="font-size: 11px; color: #999999">
+		 Show Description
+		 </a>                         
+	<div class="btn-group pull-right">
+	
+
+		<a class="btn btn-medium" href="{{ p.absolute_forum_url}}"><i class="icon-comment"></i> Forum</a>
+		<a class="btn btn-medium saveListSearch" data-pid="{{ p.id }}" href="#" data-toggle="tooltip" title='Save to "My Checklists"'><i class="icon-download-alt"></i> Save</a>
+
+		<a class="btn btn-medium printListSearch" data-pid="{{ p.id }}" data-title="{{ p.label }}" href="#" data-toggle="tooltip" title='Print'><i class="icon-print"></i> Print</a>
+		<a class="btn btn-medium undoDelQ" data-toggle="tooltip" title='Undo'><i class="icon-undo"></i></a>
+	</div>
+
+</div>
+
+
+{% if p.descr %}
+<div id="descr{{ p.pk }}" class="well well-small" style="margin-bottom: 5px" >
+<button type="button" class="close descr_close" data-pid="{{ p.pk }}" >&times;</button>
+<div style="padding-right: 50px; font-size: 12px">
+{% autoescape off %}
+{{ p.descr }}
+{% endautoescape %}
+</div>
+</div>
+{% endif %}
+
+
+	{% include "pcl/inc_list_of_questions.html" with questions=p.res_q pid=p.id lid="" is_print=False read_only=False %}
+
+
+
+{# loop through procedures #}    
+{% endfor %}
+
+
+
+
+{% if procedures|length > 0 %}
+    
+<script>
+
+$(function() {
+  	
+   	pid = {{ procedures.0.id }}        	
+ 
+   	n = '#resultDetails' + pid;
+
+	$('.undoDelQ').on('click',function(e) {
+		undoDelQuestion();
+	});	
+	$('.undoDelQ').hide();
+
+	$('.saveListSearch').on('click',function(e) {
+
+		pid  = $(this).data('pid');
+		itemName = '#resultDetails' + pid;
+		
+	    $('#modalLS').on('pcl-loggedin', function (e) {
+
+	        
+	    	saveListForUser( null, itemName );
+		    $('#modalChecklist').modal('hide');
+	    });
+
+		submitAjaxForm( null,
+			        '/user/loggedin/',
+			        "",
+			        "post",
+			    	function( data ) {
+			
+						saveListForUser( null, itemName );
+					},
+					function() {
+
+						askLoginSignup( null, null );
+					} );
+	} );
+
+	$('.printListSearch').on('click',function(e) {
+
+		pid    = $(this).data('pid');
+		title  = $(this).data('title');
+		
+		itemName = '#resultDetails' + pid;
+		
+		list = $.trim( $( itemName ).data( 'list') );
+		
+		//item = $( itemName );
+		
+		//list = item.data( { 'list' } );
+
+  	    var url = '/list/print/' + "?l=" + encodeURI( list ) + "&title=" + encodeURI( title );
+		
+  	    
+  	  	window.open( url, "print", "height=500,width=800");
+
+
+	} );
+	
+	$('.descr_show').on('click',function(e) {
+		
+		pid    = $(this).data('pid');		
+		
+		$( '#descr' + pid ).show( 'fast' );
+		
+		$( '#show_descr_link_' + pid ).hide();
+		
+		
+	} );
+	
+	$('.descr_close').on('click',function(e) {
+		
+		pid    = $(this).data('pid');		
+		
+		$( '#descr' + pid ).hide( "fast" );
+		
+		$( '#show_descr_link_' + pid ).show();
+		
+	} );
+	
+});
+
+
+
+</script>    
+    
+{#  if procedures len > 0 #}
+{% endif %}
+    
+
+{% else %}
+
+{% if search_query %}
+<div style="padding-left: 50px; padding-top: 50px;">
+
+	<h4>No Results</h4>
+</div>
+
+{% else %}
+
+
+{#  if search_query #}
+{% endif  %}
+
+
+{#  if procedures #}
+{% endif %}

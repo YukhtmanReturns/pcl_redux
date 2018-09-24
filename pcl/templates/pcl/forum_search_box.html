@@ -1,0 +1,40 @@
+
+<script>
+
+function doForumSearch() {
+
+	u = location.href;
+	// alert( u );	
+	if( u.indexOf( "/search/" ) != -1 ) {
+		u = '/forum/';
+	}
+		
+	location.href = u + 
+					"search/" + 
+					encodeURI( document.getElementById('forum-search-query').value ); 	
+	
+	return false; 	
+}
+
+
+</script>
+
+
+
+
+
+<div class="row"> <div style="padding-left: 25px; padding-top: 5px;">	
+	<form id="search-form"  onSubmit="doForumSearch(); return false;" class="form-search form-inline pull-left">
+	
+		<input  type="text" id="forum-search-query" name="p"     value="{{ forum_search_query }}" class="span5 search-query" placeholder="Search topics..." autocomplete="off">
+		
+	{% if forum_search_scope_type  %}
+		<input  type="hidden" name="st"    value="{{ forum_search_scope_type }}" >
+		<input  type="hidden" name="sv"    value="{{ forum_search_scope_val  }}" >		
+	{% endif %}
+		
+		<button type="submit" class="btn"><i class="icon-search"></i> Search</button>
+		    	    	
+	</form>
+</div></div>
+

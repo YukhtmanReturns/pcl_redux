@@ -1,0 +1,74 @@
+
+body {
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 20px;
+
+    background-image:		url('/files/img/back_clean_textile.png');
+}
+
+
+
+
+
+
+.dropdown-menu>.active>a,.dropdown-menu>.active>a:hover,.dropdown-menu>.active>a:focus
+	{
+	color: #5c7cb7;
+	text-decoration: none;
+	outline: 0;
+	background-color: #ccc;
+	background-image: -moz-linear-gradient(top, #ccc, #ccc);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ccc),
+		to(#ccc));
+	background-image: -webkit-linear-gradient(top, #ccc, #ccc);
+	background-image: -o-linear-gradient(top, #ccc, #ccc);
+	background-image: linear-gradient(to bottom, #ccc, #ccc);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cccccc',
+		endColorstr='#cccccc', GradientType=0);
+}
+
+#custom-search-form {
+	margin: 0;
+	margin-top: 5px;
+	padding: 0;
+}
+
+#custom-search-form .search-query {
+	padding-right: 3px;
+	padding-right: 4px \9;
+	padding-left: 3px;
+	padding-left: 4px \9;
+	/* IE7-8 doesn't have border-radius, so don't indent the padding */
+	margin-bottom: 0;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+#custom-search-form button {
+	border: 0;
+	background: none;
+	/** belows styles are working good */
+	padding: 2px 5px;
+	margin-top: 2px;
+	position: relative;
+	left: -28px;
+	/* IE7-8 doesn't have border-radius, so don't indent the padding */
+	margin-bottom: 0;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.search-query:focus+button {
+	z-index: 3;
+}
+
+.loginFields {
+	height: 10px;
+	font-size: 8px;
+	line-height: 10px;
+}

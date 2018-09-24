@@ -1,0 +1,30 @@
+{% extends "pcl/base.html" %}
+
+
+{% block page_title %}Home{% endblock %}
+
+{% block title %}All Procedures{% endblock %}
+
+
+
+
+
+{% block content %}
+
+<div style="padding-left: 50px; padding-top: 10px;">
+
+	<table class="table table-bordered table-striped table-hover">
+
+    {% for p in procs %}
+	<tr><td>
+
+		<a href="/search/{{ p.label|urlencode }}">{{ p.label }}</a>
+
+	</td></tr>
+	{% endfor %}
+	
+	</table>
+</div>
+	    
+{% endblock %}    
+

@@ -1,0 +1,39 @@
+{% extends "pcl/base.html" %}
+
+{% block navbar_what %}forum{% endblock %}
+
+{% block page_title %}Procedures for {{ procs.0.area.label }} {% endblock %}
+
+{% block title %}
+    <ul class="breadcrumb">
+    <li><a href="/forum/">Forum</a> <span class="divider">/</span></li>
+    <li class="active">Procedures for "{{ procs.0.area.label }}"</li>
+    </ul>
+{% endblock %}
+
+
+
+{% block content %}
+
+{% include "pcl/forum_search_box.html" with forum_search_scope_type='A' forum_search_scope_val=procs.0.area.id %}
+
+{% if procs %}
+
+	<div style="padding-left: 25px; padding-top: 10px;">
+	<div class="row">
+	    {% for p in procs %}
+	  		<div class="well well-small span4" >
+	  		
+				<a href='{{ p.absolute_forum_url  }}'>{{ p.label }}</a> 
+				<br/>
+				<small>{{p.count_topics}} topic{% if p.count_topics != 1 %}s{%endif%}</small>
+				  
+			</div>    
+	    {% endfor %}
+	</div>    
+	</div>
+
+{% endif %}
+
+{% endblock %}    
+

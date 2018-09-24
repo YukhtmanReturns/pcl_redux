@@ -1,0 +1,33 @@
+<div class="well well-small" >
+	
+<div class="row">
+	<div class="span9">
+		<a href='{{ t.absolute_forum_url }}'>{{ topic.title }}</a> 
+	</div>
+
+    <div style="width: 100%" >
+	    <div class="pull-right">
+			<span class="label ">
+				<small>{{ topic.post_count }} post{% if topic.post_count != 1 %}s{%endif%}</small>
+			</span>
+			<span class="label label-info">
+				<small><i class="icon-user"></i> {{ topic.user.forum_display_name }} </small>
+			</span>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div style="width: 100%" >
+		<div class="pull-right">
+			{% if show_procedure_in_topic_list %}
+				<span class="label label-warning">
+					<small><a style="color: rgb(255, 255, 255); " href='{{ topic.procedure.absolute_forum_url }}'>{{ topic.procedure.label }}</a></small>
+				</span>
+			{% endif %}
+			<span class="label ">
+				<small>Last Post: {{ topic.last_post_ts }}</small>
+			</span>
+		</div>
+    </div>
+</div>
+</div>

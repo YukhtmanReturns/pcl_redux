@@ -1,0 +1,57 @@
+
+	<div type=hidden id="resultDetails{{ pid }}" 
+			 data-list="{% for q in questions %}{{ q.id }} {% endfor %}"
+			  >
+
+		<table class="table table-bordered table-striped table-hover">
+		{% if read_only == False %} 
+			<tbody class="sortMe"  >
+		{% else %}
+			<tbody >
+		{% endif %}
+
+{% for q in questions %}
+
+<tr id="quest{{ pid }}_{{ q.id }}" class="procID{{ pid }}"  data-pid="{{ pid }}" data-qid="{{ q.id }}" >
+
+	<td style="">
+		<input type="checkbox" > 
+	</td>
+	
+	
+	
+	<td style="border-left: none; ">
+		{{ q.label }}
+	</td>
+
+	{% if is_print  == False %}	
+	{% if read_only == False %} 
+	<td style="width: 30px">					
+		<a  id="btnStar{{ q.id }}_{{ pid }}" data-qid="{{ q.id }}" data-pid="{{ pid }}"  
+
+		{% if q.is_starred %}						
+ 			class="btnStarIt btn  btn-success pull-right"> 	
+		{% else %}
+ 			class="btnStarIt btn              pull-right"> 	
+		{% endif %} 
+		
+		<i class="icon-thumbs-up "></i></a>
+					
+	</td>			
+	<td style="width: 30px">
+		<a class="btn btn btn-link delQuestion"  data-lid="{{ lid }}" data-pid="{{ pid }}" data-qid="{{ q.id }}" data-toggle="tooltip" title='Remove from List' style="color: rgb(0, 0, 0);" ><i class="icon-remove"></i></a>
+	</td>			
+	{% endif %}
+	{% endif %}					
+</tr>
+
+{% if is_print %}
+<tr><td colspan="3">&nbsp;</td></tr>
+{% endif  %}
+
+{% endfor %}
+
+</tbody>
+</table>
+
+</div>

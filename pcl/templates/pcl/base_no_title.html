@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+	<title>Patient&#039;s Checklist - {% block page_title %}{% endblock %}</title>
+
+	<meta name="description" content="PatientsChecklist.com will help you have a conversation with your physician. Be prepared for your next appointment and ask quality questions about your health care needs.">
+	<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link href="/files/css/bootstrap.min.css" 				 rel="stylesheet" media="screen" />
+	<link href="/files/css/bootstrap-responsive.min.css" 	 rel="stylesheet">
+	<link href="/files/css/datepicker.css" 					 rel="stylesheet">
+	<link href="/files/css/style.css" 						 rel="stylesheet">
+        
+    <link href="/files/img/apple-touch-icon.png" 			 rel="apple-touch-icon">
+    <link href="/files/img/apple-touch-icon-precomposed.png" rel="apple-touch-icon-precomposed">
+    
+	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">    
+    
+</head>
+
+<body>
+
+<script src="/files/js/jquery-1.10.2.min.js"></script>
+<script src="/files/js/jquery.validate.min.js"></script>
+
+<script src="/files/js/additional-methods.min.js"></script>
+<script src="/files/js/bootstrap.min.js"></script>
+<script src="/files/js/bootstrap-datepicker.js"></script>
+
+<script src="/files/js/jquery-ui-1.10.3.min.js"></script>
+
+
+<script src="/files/js/hogan-2.0.0.js"></script>
+<script src="/files/js/bootbox.js"></script>
+
+<script src="/files/js/pcl.js"></script>
+
+
+
+
+
+
+<div class="row">
+<div class="span12">
+
+
+
+<div id="loginMsg" class="alert alert-success hide">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <b>Success!</b> You logged in successfully.
+</div>
+
+
+
+{% if message %}
+	<div id="containerMsg" class="alert alert-{{ message.type }} ">
+	  <button type="button" class="close" data-dismiss="alert">&times;</button>
+	  <b>{{ message.title }}</b> {{ message.text }}
+	</div>
+{% endif %}
+
+
+
+{% include "pcl/base_modal.html" %}
+
+
+<div class="row">
+  <div class="span9">
+	<a id="logo" title="Home" href="/">
+		<img alt="Home" src="/files/img/patients_logo_new.png">
+	</a>
+	</div>
+	
+	<div class="span3">
+	
+	<div class="pull-right" style="padding-top: 25px">
+	
+		<a href="/"><img src="/files/img/flag_us.png"></a>
+		&nbsp;
+		<a href="/"><img src="/files/img/flag_es.png"></a>
+	
+		<br/><br/>
+	
+		<a href="https://twitter.com/PatientsCKList" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @patientcklist</a>
+		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+		
+		<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fpatientschecklist&layout=button_count&show_faces=false&width=150&action=like&share=true&colorscheme=light&height=35" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:150px; height:35px;" allowTransparency="true"></iframe>
+
+	</div>
+	
+
+
+</div>
+	
+		
+</div>
+
+<div id="containerNavbar">
+
+{% include "pcl/base_navbar.html" %}
+
+</div>
+
+
+
+
+{% block complete_title %}{% endblock %}
+
+<div style="padding-left: 25px; padding-top: 0px;">
+
+{% block content %}{% endblock %}
+
+</div>
+
+
+</div>
+</div>
+
+
+
+
+
+
+{#  Footer  #}
+
+<div class="row" style="padding-left: 00px; padding-top: 50px; padding-right: 00px; " >
+  <div class="span12">
+
+    <div class="navbar  nav">
+	    <div class="navbar-inner">
+		    <div class="container">
+			    <div class="pull-right">
+        
+    				<p class="navbar-text"><small> © 2013 Aperçu Inc.</small></p>
+	
+    			</div>
+    		</div>
+    	</div>
+    </div>
+    
+</div></div>
+
+
+
+<script>
+	
+	$('#navbar-{% block navbar_what %}{% endblock %}').parent().addClass('active');
+
+</script>
+
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37217252-1']);
+  _gaq.push(['_setDomainName', 'patientschecklist.com']);
+  _gaq.push(['_setAllowLinker', true]);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>    
+
+</body>
+</html>
+
+

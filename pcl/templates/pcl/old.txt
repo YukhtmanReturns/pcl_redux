@@ -1,0 +1,25 @@
+	$("#formSignup").validate( {
+		  rules: {
+			    pwd: "required",
+			    cpwd: {
+			      equalTo: "#pwd"
+			    }
+			  },
+		  onkeyup: true, 
+		  onsubmit: false, 
+		  onclick: true, 
+		  onfocusout: true  
+	});
+	
+	
+	
+	
+	
+		<button data-pid="{{ p.pk }}" class="btn btn-link btnResultList accordion-toggle"  href="#" >
+		{{ p.label }}
+	</button>
+	
+	
+	
+	
+	

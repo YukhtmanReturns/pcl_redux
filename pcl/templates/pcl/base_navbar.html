@@ -1,0 +1,85 @@
+
+<div>
+    <div class="navbar  nav">
+    <div class="navbar-inner">
+    <div class="container">
+    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    </a>
+    <div class="nav-collapse collapse">
+    <ul class="nav">
+    <li class="divider-vertical"></li>
+    <li><a id="navbar-home"  href="/">Home</a></li>
+    <li><a id="navbar-blog"  href="/blog/">Blog</a></li>
+    <li><a id="navbar-forum" href="/forum/">Forum</a></li>
+    <li><a id="navbar-about" href="/general/about/">About</a></li>
+    
+    <li><a href="#modalContact" role="button" id='btnShowContact' type="submit" data-toggle="modal">Contact</a></li>
+    
+    </ul>
+    <div class="pull-right">
+    <ul class="nav pull-right">
+        
+{% if user %}
+    
+    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, {{ user.name|default:user.email }} <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+
+    <li><a href="/user/lists/"><i class="icon-list-alt"></i> My Checklists</a></li>
+    <li class="divider"></li>
+
+    <li><a href="/user/profile/"><i class="icon-cog"></i> My Profile</a></li>
+    
+    <li class="divider"></li>
+    <li><a href="/user/logout/"><i class="icon-off"></i> Logout</a></li>
+    </ul>
+    </li>
+    
+{% else %}
+	
+	<li>
+	<a href="#modalSignup" role="button" type="submit" data-toggle="modal">Sign up</a>
+		</li>
+    <li id="dropdownLogin" class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login <b class="caret"></b></a>
+    <ul  id="dropdownLoginForm" class="dropdown-menu">
+	    <li> 
+	    	<div class="span5" style="padding-left: 10px; padding-top: 20px; padding-right: 10px; " >
+	    		<form id="formLogin" class="form-horizontal" >
+		    		<div class=row> <div class="span5">
+		     			<input id="loginEmail" class="span3 required email" type="email" required name="email" value="" placeholder="Enter email address..."  >
+		    			<input class="span2 pull-right"  required type="password" name="pwd"   value="" placeholder="Enter password..." 	   >
+	    			</div></div>
+		    		<div class="row" style=" padding-top: 10px;"> <div class="span3">
+		    			<label class="checkbox">
+			    			<input name="remember" type="checkbox"> Remember me <br/>
+			    			<a href="/user/forgot/">Forgot your password?</a>
+		    			</label>
+		    			</div>
+		    			<div class="span2">
+							<button id='btnLogin' class="btn btn-medium btn-success pull-right" >Login</button>
+						
+						</div>
+					</div>
+	    		</form>
+	   		</div>
+		</li>
+    </ul>
+    </li>
+        
+{% endif %}    
+    
+    </ul>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+</div>
+
+<script>
+$("#formLogin").validate();
+</script>	    		
+

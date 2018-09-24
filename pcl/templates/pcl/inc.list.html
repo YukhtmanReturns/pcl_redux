@@ -1,0 +1,97 @@
+<script>
+	$(function() {
+
+
+		 $( ".sortMe" ).sortable();
+		 $( ".sortMe" ).disableSelection();
+		 $( ".sortMe" ).sortable({
+			  stop: function( event, ui ) {				  
+				  
+				    pid = $(ui.item).data('pid');
+
+ 				    resetListForPID( pid );
+				  
+				  
+				    lid = $(ui.item).data('lid');
+  				    qid = $(ui.item).data('qid');
+				  
+				    var items = $( ".listID" + lid );
+
+				    var qIDs = [items.size()];
+				    var index = 0;
+				    items.each(
+					        function(intIndex) {
+					        	qIDs[index] = $(this).data('qid');
+					            index++;
+					        });
+
+				    
+		 			$( "#saveDataList" ).attr("data-list", qIDs.join(" ") );
+				    
+		 			
+				    res = qIDs.join(",");				    
+				    d = "a=list&lid=" + lid + "&order="+ encodeURIComponent( res );
+				    
+				    // alert( d );
+				    
+				    // todo: don't do this when not logged in
+				    
+			        submitAjaxForm( null,
+			          	    '/user/list/question/reorder/', 
+			  		  		d, 
+			  		  		"post",
+			  		  		function(data) {
+		  			      		// alert( data );
+	  				  	    },
+	  				  	    null );
+				  
+			  }
+			});
+		 		 
+	})
+</script>	
+
+
+
+{% if show_list_header %}
+  	<div class="btn-group pull-right">
+		{% if read_only == False %}
+		<a class="btn btn-medium editList"  data-lid="{{ list.id }}" data-toggle="tooltip" title='Add an item'><i class="icon-edit"></i></a>
+		<a class="btn btn-medium shareList" data-lid="{{ list.id }}" data-hk="{{ list.hash_key }}" title='Share List' href="#" data-toggle="tooltip"><i class="icon-share"></i></a>
+		<a class="btn btn-medium delList"   data-lid="{{ list.id }}" data-toggle="tooltip" title='Delete List'><i class="icon-trash"></i></a>
+		{% endif %}
+		<a class="btn btn-medium printList" data-lid="{{ list.id }}" data-title="{{ list.name }}" data-toggle="tooltip" title='Print'><i class="icon-print"></i></a>
+	</div>
+	<h5>{{ list.name }}</h5>
+{% endif %}
+
+	<div id="saveDataList" 
+	 data-list="{% for q in questions %}{{ q.id }} {% endfor %}" >
+		            
+	{% include "pcl/inc_list_of_questions.html" with questions=questions pid=list.id lid=list.id is_print=False read_only=read_only %}
+		            
+		            
+</div>
+
+
+
+
+<script>
+$('.printList').on('click',function(e) {
+
+	pid    = $(this).data('lid');
+	title  = $(this).data('title');
+	
+	itemName = '#resultDetails' + pid;
+	
+	list = $.trim( $( itemName ).data( 'list') );
+
+	    var url = '/list/print/' + "?l=" + encodeURI( list ) + "&title=" + encodeURI( title );
+	
+	    
+	  	window.open( url, "print", "height=500,width=800");
+
+
+} );
+
+</script>

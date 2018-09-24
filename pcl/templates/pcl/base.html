@@ -1,0 +1,17 @@
+{% extends "pcl/base_no_title.html" %}
+
+
+{% block complete_title %}
+
+<div class="row">
+<div id="titlediv" style="padding-left: 25px; " class="span9">
+	<legend>{% block title %}My Title{% endblock %}</legend>
+</div>
+<div style="width: 100%" >
+	{% block title_extra %}{% endblock title_extra %}
+</div>
+</div>
+
+{% endblock complete_title %}
+
+

@@ -1,0 +1,36 @@
+{% extends "pcl/base.html" %}
+
+
+
+{% block page_title %}My Checklists{% endblock %}
+
+{% block title %}My Checklists{% endblock %}
+
+
+
+{% block content %}
+
+{% if lists %}
+
+<div style="padding-left: 25px; padding-top: 10px;">
+
+    {% for l in lists %}
+    <a id="anchor-list{{ l.id }}"></a>
+  		<div id="list{{ l.id }}" class="well well-small" >
+			{% include "pcl/inc.list.html" with list=l questions=l.all_qs show_list_header=True read_only=False %}        
+		</div>    
+    {% endfor %}
+    
+</div>
+
+{% else %}
+
+<div style="padding-left: 25px; padding-top: 10px;">
+	<h5>You haven't saved any lists yet.</h5>
+</div>
+
+{% endif %}
+
+
+{% endblock %}    
+

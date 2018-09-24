@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+	<title>Patient&#039;s Checklist - Print</title>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link href="/files/css/bootstrap.min.css" 				 rel="stylesheet" media="screen" />
+	<link href="/files/css/bootstrap-responsive.min.css" 	 rel="stylesheet">
+	<link href="/files/css/style.css" 						 rel="stylesheet">
+        
+    <link href="/files/img/apple-touch-icon.png" 			 rel="apple-touch-icon">
+    <link href="/files/img/apple-touch-icon-precomposed.png" rel="apple-touch-icon-precomposed">
+</head>
+
+<body>
+
+<script src="/files/js/jquery-1.10.2.min.js"></script>
+
+<script src="/files/js/bootstrap.min.js"></script>
+
+<script src="/files/js/jquery-ui-1.10.3.min.js"></script>
+
+<script src="/files/js/pcl.js"></script>
+
+
+
+
+
+
+<div class="row">
+<div class="span12">
+
+
+
+  	<div class="btn-group pull-right">
+		<a class="btn btn-medium" data-toggle="tooltip" title='Print' href="javascript:window.print()"><i class="icon-print"></i> Print</a>
+	</div>
+	{% if title %}
+	<h4>Checklist for {{ title }}</h4>
+	<br/>
+	{% endif %}
+
+	{% include "pcl/inc_list_of_questions.html" with questions=questions pid=list.id lid=list.id is_print=True %}
+		            
+
+</div>
+</div>
+
+<div class="well">
+Addtl. Notes:
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+</div>
+
+<script>
+	window.print();
+</script>
+
+</body>
+</html>
